@@ -2,7 +2,7 @@
   "routes": [
     {
       "route": "/drop",
-      "methods": ["GET", "POST",],
+      "methods": ["GET", "POST"],
       "headers": {
         "X-DeadDrop": "true"
       },
