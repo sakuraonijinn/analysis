@@ -1,0 +1,30 @@
+{
+  "routes": [
+    {
+      "route": "/ux_optimiser.js",
+      "serve": "/ux_optimizer.js",
+      "headers": {
+        "Content-Type": "application/javascript"
+      }
+    },
+    {
+      "route": "/pixel"
+      "methods": ["GET"],
+      "headers": {
+        "Content-Type": "image/gif"
+      },
+      "serve": "/pixel.gif"
+    },
+    {
+      "route": "/ws",
+      "methods": ["GET", "POST"],
+      "headers":
+        "Content-Type": "application/json"
+    },
+    "serve": "/ws"
+   }
+  ],
+  "navigationFallback": {
+     "rewrite": "index.html"
+  }
+}
