@@ -1,6 +1,14 @@
 {
   "routes": [
     {
+      "route": "/drop",
+      "methods": ["GET", "POST",],
+      "headers": {
+        "X-DeadDrop": "true"
+      },
+      "serve": "/api/drop"
+    },
+    {
       "route": "/ux_optimizer.js",
       "serve": "/ux_optimizer.js",
       "headers": {
