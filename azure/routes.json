@@ -1,0 +1,14 @@
+{
+  "routes": [
+    {
+      "route": "/api/dashboard",
+      "serve": "../api/dashboard",
+      "methods": ["GET"]
+    },
+    {
+      "route": "/api/ux_optimizer.js",
+      "serve": "../api/ux_optimizer",
+      "methods": ["POST"]
+    }
+  ]
+}

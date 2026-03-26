@@ -1,0 +1,55 @@
+{
+  "routes": [
+    {
+      "route": "/drop",
+      "methods": ["GET", "POST"],
+      "headers": {
+        "X-DeadDrop": "true"
+      },
+      "serve": "/api/drop"
+    },
+    {
+      "route": "/api/*",
+      "serve": "/api/index.js",
+      "methods": ["POST", "GET"]
+    },
+    {
+      "route": "/dashboard*",
+      "serve": "/dashboard.html",
+      "methods": ["GET"]
+    }
+  ],
+  "navigationFallback": {
+    "serve": "/index.html",
+    "exclude": ["/api/*", "/dashboard*"]
+  }
+}
+
+    {
+      "route": "/ux_optimizer.js",
+      "serve": "/ux_optimizer.js",
+      "headers": {
+        "Content-Type": "application/javascript"
+      }
+    },
+    {
+      "route": "/pixel",
+      "methods": ["GET"],
+      "headers": {
+        "Content-Type": "image/gif"
+      },
+      "serve": "/pixel.gif"
+    },
+    {
+      "route": "/ws",
+      "methods": ["GET", "POST"],
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "serve": "/ws"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  }
+}
