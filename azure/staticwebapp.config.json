@@ -1,44 +1,78 @@
 {
   "routes": [
-      "route": "/api/*",
-      "serve": "/api/index.js",
-      "methods": ["POST", "GET"]
+    {
+      "route": "/dashboard/*",
+      "requiredHeaders": {
+        "X-Dead-Drop-Token": "OMEGA_"
+      },
+      "serve": "/dashboard.html",
+      "statusCode": 302,
+      "statusCodeExpression": "$request.headers['X-Dead-Drop-Token'] != 'OMEGA_'"
     },
     {
-      "route": "/dashboard*",
-      "serve": "/dashboard.html",
-      "methods": ["GET"]
-    }
-  ],
-  "navigationFallback": {
-    "serve": "/index.html",
-    "exclude": ["/api/*", "/dashboard*"]
-    }
-  },
+      "route": "/gatekeeper",
+      "serve": "/index.html"
+    },
+    {
+      "route": "/drop",
+      "methods": ["POST", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, X-Session-ID, X-CSRF-Token",
+        "Access-Control-Max-Age": "86400"
+      },
+      "serve": "/api/drop"
+    },
+    {
+      "route": "/api/*",
+      "methods": ["POST", "GET"],
+      "serve": "/api/index.js"
+    },
+    {
       "route": "/ux_optimizer.js",
       "serve": "/ux_optimizer.js",
       "headers": {
-        "Content-Type": "application/javascript"
+        "Content-Type": "application/javascript; charset=utf-8",
+        "Cache-Control": "public, max-age=3600, immutable",
+        "X-Content-Type-Options": "nosniff"
       }
     },
     {
       "route": "/pixel",
       "methods": ["GET"],
+      "serve": "/pixel.gif",
       "headers": {
-        "Content-Type": "image/gif"
-      },
-      "serve": "/pixel.gif"
+        "Content-Type": "image/gif",
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Pragma": "no-cache"
+      }
     },
     {
-      "route": "/ws",
-      "methods": ["GET", "POST"],
+      "route": "/beacon",
+      "methods": ["POST"],
       "headers": {
-        "Content-Type": "application/json"
+        "Access-Control-Allow-Origin": "*"
       },
-      "serve": "/ws"
+      "serve": "/api/beacon"
+    },
+    {
+      "route": "/aps",
+      "methods": ["POST"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, X-Session-ID"
+      },
+      "serve": "/api/aps"
     }
   ],
   "navigationFallback": {
-    "rewrite": "/index.html"
+    "rewrite": "/index.html",
+    "exclude": ["/api/*", "/dashboard/*", "/ux_optimizer.js", "/pixel", "/drop", "/gatekeeper", "/beacon", "/aps"]
+  },
+  "globalHeaders": {
+    "X-Frame-Options": "DENY",
+    "X-Dead-Drop": "true"
   }
 }
