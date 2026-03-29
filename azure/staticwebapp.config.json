@@ -1,14 +1,5 @@
 {
   "routes": [
-    {
-      "route": "/drop",
-      "methods": ["GET", "POST"],
-      "headers": {
-        "X-DeadDrop": "true"
-      },
-      "serve": "/api/drop"
-    },
-    {
       "route": "/api/*",
       "serve": "/api/index.js",
       "methods": ["POST", "GET"]
@@ -22,10 +13,8 @@
   "navigationFallback": {
     "serve": "/index.html",
     "exclude": ["/api/*", "/dashboard*"]
-  }
-}
-
-    {
+    }
+  },
       "route": "/ux_optimizer.js",
       "serve": "/ux_optimizer.js",
       "headers": {
