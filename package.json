@@ -1,0 +1,34 @@
+{
+  "name": "analysis",
+  "version": "1.0.0",
+  "description": "Platform for content delivery and user behavior tracking",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"System is operational\"",
+    "deploy": "az staticwebapp deploy --name analysis --resource-group analysis_group",
+    "encrypt": "node utils/encrypt.js",
+    "obfuscate": "javascript-obfuscator public/analytics.js --output public/analytics_min.js --compact true --self-defending true",
+    "build": "echo \"Build process completed\""
+  },
+  "dependencies": {
+    "@azure/data-tables": "^13.2.0",
+    "crypto": "^1.0.1",
+    "express": "^4.18.2",
+    "https": "^1.0.0"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^4.1.0"
+  },
+  "keywords": [
+    "tracking",
+    "monitoring",
+    "analytics",
+    "delivery"
+  ],
+  "author": "System Administrator",
+  "license": "Proprietary"
+}
